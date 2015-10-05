@@ -17,7 +17,7 @@ public class ServerletContextNew implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		arg0.getServletContext().setAttribute("model", new Manager());
+		arg0.getServletContext().setAttribute("manager", new Manager());
 		
 	}
 	
