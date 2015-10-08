@@ -1,9 +1,13 @@
 package nl.saxion.rest.model;
 
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @XmlRootElement
 public class Movie {
 	public static int MyinternFollowNr = 1;
@@ -29,13 +33,13 @@ public class Movie {
 	public Movie(){
 		
 	}
-	
+	@JsonIgnore
 	@XmlTransient
 	public int getInternFollowNr() {
 		return internFollowNr;
 	}
 	
-	@XmlAttribute
+
 	public int getImdbttNr() {
 		return imdbttNr;
 	}
@@ -43,7 +47,7 @@ public class Movie {
 	public void setImdbttNr(int imdbttNr) {
 		this.imdbttNr = imdbttNr;
 	}
-	@XmlAttribute
+
 	public String getTitle() {
 		return title;
 	}
@@ -51,7 +55,8 @@ public class Movie {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	@XmlAttribute
+	
+
 	public String getDate() {
 		return date;
 	}
@@ -59,7 +64,7 @@ public class Movie {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	@XmlAttribute
+
 	public int getDuration() {
 		return duration;
 	}
@@ -67,7 +72,8 @@ public class Movie {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-	@XmlAttribute
+	
+
 	public String getDirector() {
 		return director;
 	}
@@ -75,7 +81,7 @@ public class Movie {
 	public void setDirector(String director) {
 		this.director = director;
 	}
-	@XmlAttribute
+
 	public String getDescription() {
 		return description;
 	}

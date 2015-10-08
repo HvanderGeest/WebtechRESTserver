@@ -1,18 +1,16 @@
 package nl.saxion.rest.controllers;
 
 
+
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import nl.saxion.rest.model.Manager;
 import nl.saxion.rest.model.Movie;
@@ -24,9 +22,8 @@ public class MovieResource {
 	
 	@GET
 	@Path("{id}")
-	@Produces({MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Movie getMovie(@PathParam("id")int imdbttNr){
-		System.out.println(imdbttNr);
 		Manager m = (Manager) context.getAttribute("manager");
 		Movie movie = m.getMovie(imdbttNr);
 			return movie;
@@ -36,7 +33,7 @@ public class MovieResource {
 	}
 	
 	@GET
-	@Produces({MediaType.APPLICATION_XML})
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,})
 	public List<Movie> moviesWorking(){
 		Manager m = (Manager) context.getAttribute("manager");
 		return m.getMovieList();

@@ -8,6 +8,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class InitRest extends ResourceConfig {
 	public InitRest() {
 		super();
-		packages("controllers");
+		packages("nl.saxion.rest.controllers");
+		register(com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider.class);
 	}
 }

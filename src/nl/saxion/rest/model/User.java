@@ -1,10 +1,11 @@
 package nl.saxion.rest.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+@XmlRootElement
 public class User {
 	private String firstname;
 	private String insertion;
@@ -48,7 +49,7 @@ public class User {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+	@XmlTransient
 	@JsonIgnore
 	public String getPassword() {
 		return password;
