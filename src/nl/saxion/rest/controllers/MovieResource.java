@@ -1,6 +1,8 @@
 package nl.saxion.rest.controllers;
 
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -32,24 +34,16 @@ public class MovieResource {
 		
 		
 	}
-	/*
+	
 	@GET
-	@Path("get")
 	@Produces({MediaType.APPLICATION_XML})
-	public Movie moviesWorking(){
-		System.out.println("sysout werkt");
-		return new Movie(1, 420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa");
-	}*/
-	
-	
-	@POST
-	@Path("/")
-	@Consumes({MediaType.APPLICATION_XML})
-	public Response newMovie(Movie movie){
+	public List<Movie> moviesWorking(){
 		Manager m = (Manager) context.getAttribute("manager");
-		m.addMovie(movie);
-		return Response.status(200).entity(movie.getTitle()).build();
+		return m.getMovieList();
 	}
-
+	
+	
+	
+	
 
 }

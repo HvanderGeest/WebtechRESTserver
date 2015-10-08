@@ -15,6 +15,7 @@ public class Manager {
 		this.s = "test";
 		users.add(new User("Harm", "de", "Docent", "Harm9", "secret"));
 		movies.add(new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa"));
+		movies.add(new Movie(420,"half life 3","?",90, "Gaben Noell", "gamen"));
 	}
 	
 	public String getTest() {
@@ -35,6 +36,14 @@ public class Manager {
 		} else {
 			return false;
 		}
+	}
+	
+	public List<User> getUserList() {
+		return this.users;
+	}
+	
+	public List<Movie> getMovieList(){
+		return this.movies;
 	}
 	
 	public User getUserByKey(String key) {
