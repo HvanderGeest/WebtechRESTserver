@@ -1,5 +1,8 @@
 package nl.saxion.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 public class User {
 	private String firstname;
 	private String insertion;
@@ -7,7 +10,10 @@ public class User {
 	private String nickname;
 	private String password;
 	
-	public User(String firstname, String insertion, String lastname, String nickname, String password) {
+	public User() {	
+	}
+	
+	public User(String firstname,  String lastname, String insertion, String nickname, String password) {
 		super();
 		this.firstname = firstname;
 		this.insertion = insertion;
@@ -40,6 +46,8 @@ public class User {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
@@ -47,4 +55,8 @@ public class User {
 		this.password = password;
 	}
 	
+	@Override
+	public String toString() {
+		return nickname + " " + firstname;
+	}
 }

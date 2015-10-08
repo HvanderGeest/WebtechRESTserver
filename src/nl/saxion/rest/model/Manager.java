@@ -35,6 +35,10 @@ public class Manager {
 		}
 	}
 	
+	public List<User> getUserList() {
+		return this.users;
+	}
+	
 	public User getUserByKey(String key) {
 		if (checkKey(key)) {
 			return keyMap.get("key");
