@@ -16,7 +16,7 @@ public class HelloWorld {
 	@GET
 	@Produces({MediaType.TEXT_PLAIN})
 	public String hi() {
-		Manager m = (Manager) context.getAttribute("model");
+		Manager m = (Manager) context.getAttribute("manager");
 		return m.getTest();
 	}
 }

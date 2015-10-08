@@ -9,10 +9,12 @@ public class Manager {
 	private String s;
 	private List<User> users = new ArrayList<User>();
 	private Map<Token,User> keyMap = new HashMap<Token,User>();
+	private ArrayList<Movie> movies = new ArrayList<>();
 	
 	public Manager() {
 		this.s = "test";
 		users.add(new User("Harm", "de", "Docent", "Harm9", "secret"));
+		movies.add(new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa"));
 	}
 	
 	public String getTest() {
@@ -54,5 +56,20 @@ public class Manager {
 		}
 		
 		return null;
+	}
+	
+	public Movie getMovie(int imdbttNr){
+		for(Movie m : movies){
+			if(m.getImdbttNr() == imdbttNr){
+				return m;
+			}
+		}
+		//not found
+		return null;
+	}
+	
+	public void addMovie(Movie movie){
+		movies.add(movie);
+		System.out.println("movie added");
 	}
 }

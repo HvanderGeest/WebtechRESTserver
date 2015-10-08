@@ -7,6 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 @ApplicationPath("api")
 public class InitRest extends ResourceConfig {
 	public InitRest() {
+		super();
 		packages("controllers");
 	}
 }
