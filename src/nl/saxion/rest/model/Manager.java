@@ -14,12 +14,16 @@ public class Manager {
 	public Manager() {
 		this.s = "test";
 		users.add(new User("Harm", "de", "Docent", "Harm9", "secret"));
-		movies.add(new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa"));
-		movies.add(new Movie(430,"half life 3","?",90, "Gaben Noell", "gamen"));
+		Movie m = new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa");
+		movies.add(m);
+		
+		movies.add(new Movie(430,"half life 3","12-02-2004",90, "Gaben Noell", "gamen"));
 		
 		//user + token for testing
-		users.add(new User("test", "test", "test", "test", "test"));
-		keyMap.put(new Token("test_token"), new User("test", "test", "test", "test", "test"));
+		User test = new User("test", "test", "test", "test", "test");
+		users.add(test);
+		m.addRating(new Rating(0.9, test));
+		keyMap.put(new Token("test_token"), test);
 	}
 	
 	public String getTest() {
@@ -30,9 +34,6 @@ public class Manager {
 		users.add(u);
 	}
 	
-	public void getUser() {
-		
-	}
 	
 	private Token getToken(String key){
 		for( Token t : keyMap.keySet()){
@@ -100,6 +101,60 @@ public class Manager {
 		}
 		
 		return total / movie.getRatings().size();
+	}
+	
+	public List<Movie> queryMovie(String title, String date, String director){
+		List<Movie> result = new ArrayList<>();
+		if(title != null){
+			for(Movie movie : movies){
+				if(movie.getTitle().equalsIgnoreCase(title)){
+					if(date != null && !movie.getDate().equals(date)){
+						break;
+					}
+					if(director != null && !movie.getDirector().equalsIgnoreCase(director)){
+						break;
+					}
+					result.add(movie);
+					
+				}
+			}
+		} else if(date != null){
+			//title is null
+			for(Movie m : movies){
+				if(m.getDate().equalsIgnoreCase(date)){
+					if(director != null && !m.getDirector().equalsIgnoreCase(director)){
+						break;
+					}
+					result.add(m);
+				}
+			}
+		} else {
+			for(Movie m : movies){
+				//title and date are null
+				if(m.getDirector().equalsIgnoreCase(director)){
+					result.add(m);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public Rating getRatingForMovie(String usertoken, int imdbttNr){
+		Movie m = getMovie(imdbttNr);
+		if(m == null){
+			return null;
+		}
+		User u = keyMap.get(getToken(usertoken));
+		System.out.println(u.getFirstname());
+		for(Rating r : m.getRatings()){
+			System.out.println(r.getUser().getFirstname() + r.getRating());
+			if(r.isFromUser(u)){
+				return r;
+			}
+		}
+		System.out.println("not found");
+		return new Rating();
+		
 	}
 	
 }

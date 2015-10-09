@@ -10,6 +10,7 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -42,7 +43,7 @@ public class MovieResource {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,})
-	public Response getMovies(@HeaderParam("token") String token){
+	public Response getAllMovies(@HeaderParam("token") String token){
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(token)){
 			//autorized call
@@ -53,6 +54,29 @@ public class MovieResource {
 			return Response.status(401).build();
 			
 		}
+	}
+	
+	@GET
+	@Path("query")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	public Response getMoviesByQuery(@QueryParam("title") String title, @QueryParam("date") String date, 
+			@QueryParam("director") String director, @HeaderParam("token") String token){
+		Manager m = (Manager) context.getAttribute("manager");
+		System.out.println(title+ date+ director);
+		if(m.checkKey(token)){
+			//autorised
+			if(title != null || date != null || director != null){
+				List<Movie> list = m.queryMovie(title, date, director);
+				GenericEntity<List<Movie>> entity = new GenericEntity<List<Movie>>(list) {};
+				return Response.ok(entity).build();
+			} else {
+				return Response.status(405).build();
+			}
+			
+		} else {
+			return Response.status(405).build();
+		}
+		
 	}
 	
 	

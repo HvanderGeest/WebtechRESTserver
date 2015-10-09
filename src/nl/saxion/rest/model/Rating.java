@@ -11,8 +11,8 @@ public class Rating {
 	private User user;
 	
 	public Rating(double rating, User user){
-		this.setRating(rating);
-		this.setUser(user);
+		this.rating = rating;
+		this.user = user;
 	}
 	
 	
@@ -42,6 +42,14 @@ public class Rating {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public void removeRating(){
+		this.rating = 0;
+	}
+	
+	public boolean isFromUser(User u){
+		return u.equals(user);
 	}
 
 }
