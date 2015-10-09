@@ -9,13 +9,17 @@ public class Manager {
 	private String s;
 	private List<User> users = new ArrayList<User>();
 	private Map<Token,User> keyMap = new HashMap<Token,User>();
-	private ArrayList<Movie> movies = new ArrayList<>();
+	private List<Movie> movies = new ArrayList<>();
 	
 	public Manager() {
 		this.s = "test";
 		users.add(new User("Harm", "de", "Docent", "Harm9", "secret"));
 		movies.add(new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa"));
 		movies.add(new Movie(430,"half life 3","?",90, "Gaben Noell", "gamen"));
+		
+		//user + token for testing
+		users.add(new User("test", "test", "test", "test", "test"));
+		keyMap.put(new Token("test_token"), new User("test", "test", "test", "test", "test"));
 	}
 	
 	public String getTest() {
@@ -30,8 +34,18 @@ public class Manager {
 		
 	}
 	
+	private Token getToken(String key){
+		for( Token t : keyMap.keySet()){
+			if(t.toString().equals(key)){
+				return t;
+			}
+		}
+		return null;
+		
+	}
+	
 	public boolean checkKey(String key) {
-		if(keyMap.containsKey(key)) {
+		if(keyMap.containsKey(getToken(key))) {
 			return true;
 		} else {
 			return false;
@@ -47,11 +61,8 @@ public class Manager {
 	}
 	
 	public User getUserByKey(String key) {
-		if (checkKey(key)) {
-			return keyMap.get("key");
-		} else {
-			return null;
-		}
+		return keyMap.get(getToken(key));
+		
 	}
 	
 	public Token login(String user, String password) {
@@ -81,4 +92,14 @@ public class Manager {
 		movies.add(movie);
 		System.out.println("movie added");
 	}
+	
+	public double getAvarageRating(Movie movie){
+		double total = 0;
+		for(Rating rating : movie.getRatings()){
+			total += rating.getRating();
+		}
+		
+		return total / movie.getRatings().size();
+	}
+	
 }

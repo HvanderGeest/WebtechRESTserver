@@ -6,13 +6,17 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import nl.saxion.rest.model.Manager;
+import nl.saxion.rest.model.Movie;
 import nl.saxion.rest.model.Token;
 import nl.saxion.rest.model.User;
 
@@ -31,10 +35,16 @@ public class UserController {
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public List<User> getUserByStuff() {
+	public Response getUserByStuff(@HeaderParam("token") String key) {
 		Manager m = (Manager) context.getAttribute("manager");
-		System.out.println(m.getUserList().get(0).getPassword());
-		return m.getUserList();
+		if(m.checkKey(key)){
+			System.out.println(m.getUserList().get(0).getPassword());
+			List<User> list =  m.getUserList();
+			GenericEntity<List<User>> entity = new GenericEntity<List<User>>(list) {};
+			return Response.ok(entity).build();
+		}
+		return Response.status(401).build();
+		
 	}
 	
 	

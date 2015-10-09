@@ -1,6 +1,9 @@
 package nl.saxion.rest.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -18,7 +21,17 @@ public class Movie {
 	private int duration;
 	private String director;
 	private String description;
+	private List<Rating> ratings = new ArrayList<>();
 	
+	/**
+	 * constructs a new movie object
+	 * @param imdbttNr the imdbttNr
+	 * @param title the titel of the movie
+	 * @param date the date the movie was released
+	 * @param duration the duration of the movie
+	 * @param director the director of the movie
+	 * @param description a description of the movie
+	 */
 	public Movie(int imdbttNr, String title, String date, int duration, String director, String description){
 		internFollowNr = MyinternFollowNr;
 		MyinternFollowNr++;
@@ -29,7 +42,9 @@ public class Movie {
 		this.director = director;
 		this.description = description;
 	}
-	
+	/**
+	 * an empty constructor to make sure the conversion to xml works.
+	 */
 	public Movie(){
 		
 	}
@@ -88,5 +103,15 @@ public class Movie {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public void addRating(Rating rating){
+		ratings.add(rating);
+	}
+	
+	@JsonIgnore
+	@XmlTransient
+	public List<Rating> getRatings(){
+		return ratings;
 	}
 }

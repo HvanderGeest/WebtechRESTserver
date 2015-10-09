@@ -10,6 +10,15 @@ public class Token {
 		token = new BigInteger(130, new SecureRandom()).toString(32);
 	}
 	
+	/**
+	 * this constructor is here to enable easy testing with postman,
+	 * constructor should be deleted when application goes live
+	 * @param testToken the test token.
+	 */
+	public Token(String testToken){
+		this.token = testToken;
+	}
+	
 	@Override
 	public String toString() {
 		return token;
