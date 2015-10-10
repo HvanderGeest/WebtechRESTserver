@@ -9,10 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Rating {
 	private double rating;
 	private User user;
+	private int imdbttNr;
 	
-	public Rating(double rating, User user){
+	public Rating(double rating, User user, int imdbttNr){
 		this.rating = rating;
 		this.user = user;
+		this.imdbttNr = imdbttNr;
 	}
 	
 	
@@ -50,6 +52,11 @@ public class Rating {
 	
 	public boolean isFromUser(User u){
 		return u.equals(user);
+	}
+
+
+	public int getImdbttNr() {
+		return imdbttNr;
 	}
 
 }

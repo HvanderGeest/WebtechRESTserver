@@ -22,7 +22,7 @@ public class Manager {
 		//user + token for testing
 		User test = new User("test", "test", "test", "test", "test");
 		users.add(test);
-		m.addRating(new Rating(0.9, test));
+		m.addRating(new Rating(0.9, test, m.getImdbttNr()));
 		keyMap.put(new Token("test_token"), test);
 	}
 	
@@ -185,6 +185,18 @@ public class Manager {
 		System.out.println("not found");
 		return new Rating();
 		
+	}
+	
+	public List<Rating> getMyRatings(String token){
+		List<Rating> result = new ArrayList<>();
+		for(Movie m : movies){
+			for(Rating r : m.getRatings()){
+				if(r.getUser().equals(getUserByKey(token))){
+					result.add(r);
+				}
+			}
+		}
+		return result;
 	}
 	
 	public List<Movie> getMoviesWithRating(){
