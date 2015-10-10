@@ -114,4 +114,35 @@ public class Movie {
 	public List<Rating> getRatings(){
 		return ratings;
 	}
+	
+	public boolean hasRatingFromUser(User u){
+		for(Rating r : ratings){
+			if(r.getUser().equals(u)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean deleteRatingFromUser(User u){
+		for(Rating r : ratings){
+			if(r.getUser().equals(u)){
+				ratings.remove(r);
+				//succesfully deleted
+				return true;
+			}
+		}
+		//not deleted
+		return false;
+	}
+	
+	public double getAvarageRating() {
+		double total = 0;
+		for(Rating rating : ratings){
+			total += rating.getRating();
+		}
+		
+		return total / ratings.size();
+	}
+	
 }

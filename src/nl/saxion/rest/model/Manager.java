@@ -26,6 +26,15 @@ public class Manager {
 		keyMap.put(new Token("test_token"), test);
 	}
 	
+	public boolean userExists(User u){
+		for(User user : users){
+			if(user.getNickname().equals(u.getNickname())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public String getTest() {
 		return this.s;
 	}
@@ -94,14 +103,7 @@ public class Manager {
 		System.out.println("movie added");
 	}
 	
-	public double getAvarageRating(Movie movie){
-		double total = 0;
-		for(Rating rating : movie.getRatings()){
-			total += rating.getRating();
-		}
-		
-		return total / movie.getRatings().size();
-	}
+	
 	
 	public List<Movie> queryMovie(String title, String date, String director){
 		List<Movie> result = new ArrayList<>();
@@ -139,7 +141,35 @@ public class Manager {
 		return result;
 	}
 	
-	public Rating getRatingForMovie(String usertoken, int imdbttNr){
+	public List<User> queryUser(String nickname, String firstname, String lastname){
+		List<User> result = new ArrayList<>();
+		if(nickname != null){
+			for(User u : users){
+				if(u.getNickname().equals(nickname)){
+					result.add(u);
+				}
+			}
+			
+		} else if(firstname != null){
+			for(User u : users){
+				if(u.getFirstname().equalsIgnoreCase(firstname)){
+					if(lastname != null && !u.getLastname().equalsIgnoreCase(lastname)){
+						break;
+					}
+					result.add(u);
+				}
+			}
+		} else {
+			for(User u : users){
+				if(u.getLastname().equalsIgnoreCase(lastname)){
+					result.add(u);
+				}
+			}
+		}
+		return result;
+	}
+	
+	public Rating getMyRatingForMovie(String usertoken, int imdbttNr){
 		Movie m = getMovie(imdbttNr);
 		if(m == null){
 			return null;
@@ -155,6 +185,17 @@ public class Manager {
 		System.out.println("not found");
 		return new Rating();
 		
+	}
+	
+	public List<Movie> getMoviesWithRating(){
+		List<Movie> result = new ArrayList<>();
+		for(Movie m : movies){
+			if(m.getRatings().isEmpty()){
+				break;
+			}
+			result.add(m);
+		}
+		return result;
 	}
 	
 }

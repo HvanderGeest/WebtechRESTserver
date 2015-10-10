@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 
 public class Token {
 	private String token;
+	public static final String TOKEN_HEADER = "token";
 	
 	public Token() {
 		token = new BigInteger(130, new SecureRandom()).toString(32);
