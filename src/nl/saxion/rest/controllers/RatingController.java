@@ -26,9 +26,13 @@ import nl.saxion.rest.model.Token;
 import nl.saxion.rest.model.User;
 
 @Path("ratings")
-public class RatingResource {
+public class RatingController {
 	@Context ServletContext context;
-	
+	/**
+	 * gets a list of my ratings
+	 * @param token token of the list of ratings that should be gotten
+	 * @return status error code or list of my ratings
+	 */
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response getMyRatings( @HeaderParam(Token.TOKEN_HEADER) String token){
@@ -41,7 +45,12 @@ public class RatingResource {
 			return Response.status(401).build();
 		}
 	}
-	
+	/**
+	 * gets a rating of a specific movie
+	 * @param imdbttNr imdbttNr of the movie
+	 * @param token token for verification
+	 * @return Rating for movie with the imdbttNr
+	 */
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -56,15 +65,21 @@ public class RatingResource {
 			return Response.status(401).build();
 		}
 	}
-	
+	/**
+	 * used to create a new rating
+	 * @param token token used for verification 
+	 * @param imdbttNr imdbttNr for the movie the rating should be given to
+	 * @param rating rating movie is given should be 0.5 or higher and cant be bigger then 5
+	 * @return status code
+	 */
 	@POST
 	@Path("{id}")
 	public Response newRating(@HeaderParam(Token.TOKEN_HEADER) String token, @PathParam("id") int imdbttNr,
 			@FormParam("rating") double rating){
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(token)){
-			if(rating < 0.5 || rating > 5 || imdbttNr ==0){
-				//missing parameter
+			if(rating < 0.5 || rating > 5 || imdbttNr ==0 || !numberIsInHalfIntervals(rating)){
+				//missing valid parameter
 				return Response.status(422).build();
 			}
 			Movie movie = m.getMovie(imdbttNr);
@@ -80,7 +95,12 @@ public class RatingResource {
 			return Response.status(401).build();
 		}
 	}
-	
+	/**
+	 * delete a rating
+	 * @param token token used for verification
+	 * @param imdbttNr number of the movie the rating should be deleted for
+	 * @return status code
+	 */
 	@DELETE
 	@Path("{id}")
 	public Response deleteRating(@HeaderParam(Token.TOKEN_HEADER) String token, @PathParam("id") int imdbttNr){
@@ -101,15 +121,21 @@ public class RatingResource {
 			return Response.status(401).build();
 		}
 	}
-	
+	/**
+	 * update a rating to another rating
+	 * @param token token used for verification
+	 * @param imdbttNr number of the movie
+	 * @param newRating new value of the rating
+	 * @return status code
+	 */
 	@PUT
 	@Path("{id}")
 	public Response updateRating(@HeaderParam(Token.TOKEN_HEADER) String token, @PathParam("id") int imdbttNr,
 			@FormParam("rating") double newRating ){
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(token)){
-			System.out.println(newRating);
-			if(newRating < 0.5 || newRating > 5) return Response.status(422).build(); 
+			if(newRating < 0.5 || newRating > 5 || !numberIsInHalfIntervals(newRating)) return Response.status(422).build();
+
 			Rating r = m.getMyRatingForMovie(token, imdbttNr);
 			if(r == null) return Response.status(404).build();
 			r.setRating(newRating);
@@ -118,6 +144,11 @@ public class RatingResource {
 			return Response.status(401).build();
 		}
 		
+	}
+	
+	private boolean numberIsInHalfIntervals(double number){
+		double result = number / 0.5;
+		return (result % 1) ==0;
 	}
 	
 

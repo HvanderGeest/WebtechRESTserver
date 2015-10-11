@@ -1,5 +1,6 @@
 package nl.saxion.rest.model;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -11,6 +12,12 @@ public class Rating {
 	private User user;
 	private int imdbttNr;
 	
+	/**
+	 * Construct a Rating object
+	 * @param rating the rating value, has to be between 0.5 and 5
+	 * @param user the user who made the rating
+	 * @param imdbttNr the number of the movie the rating is for
+	 */
 	public Rating(double rating, User user, int imdbttNr){
 		this.rating = rating;
 		this.user = user;
@@ -24,6 +31,7 @@ public class Rating {
 	public Rating(){
 		
 	}
+	
 
 
 	public double getRating() {
@@ -59,4 +67,10 @@ public class Rating {
 		return imdbttNr;
 	}
 
+
+	public void setImdbttNr(int imdbttNr) {
+		this.imdbttNr = imdbttNr;
+	}
+
+	
 }

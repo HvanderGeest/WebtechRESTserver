@@ -19,10 +19,17 @@ import nl.saxion.rest.model.Movie;
 import nl.saxion.rest.model.Token;
 
 @Path("movies")
-public class MovieResource {
+public class MovieController {
 	@Context
 	ServletContext context;
-
+	
+	
+	/**
+	 * get movie for certain movie number
+	 * @param imdbttNr number of the movie
+	 * @param token token used for verificaion
+	 * @return the found movie or a statuscode
+	 */
 	@GET
 	@Path("{id}")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -37,7 +44,14 @@ public class MovieResource {
 		}
 
 	}
-
+	
+	
+	/**
+	 * gets all existing movie
+	 * @param token used for verification, for getting the movies with a rating the verification isn't required
+	 * @param hasRating if true all movies will be returned that have a rating if null or false all movies will be returned but requires autorisation
+	 * @return list of movies or status code
+	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, })
 	public Response getAllMovies(@HeaderParam(Token.TOKEN_HEADER) String token,
@@ -61,7 +75,14 @@ public class MovieResource {
 
 		}
 	}
-
+	/**
+	 * search all movies for given parameters
+	 * @param title title of the movie
+	 * @param date date of the movie
+	 * @param director director of the movie
+	 * @param token token of the movie
+	 * @return list of found movies or status code
+	 */
 	@GET
 	@Path("query")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

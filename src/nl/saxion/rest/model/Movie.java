@@ -114,7 +114,11 @@ public class Movie {
 	public List<Rating> getRatings(){
 		return ratings;
 	}
-	
+	/**
+	 * checks wheter a user has rated this movie
+	 * @param u the user that should be checked
+	 * @return true if the user has rated this movie false otherwise
+	 */
 	public boolean hasRatingFromUser(User u){
 		for(Rating r : ratings){
 			if(r.getUser().equals(u)){
@@ -123,7 +127,11 @@ public class Movie {
 		}
 		return false;
 	}
-	
+	/**
+	 * deletes a rating from this movie
+	 * @param u user of which the rating should be deleted
+	 * @return true if deletion was succesfull false otherwise
+	 */
 	public boolean deleteRatingFromUser(User u){
 		for(Rating r : ratings){
 			if(r.getUser().equals(u)){
@@ -135,7 +143,10 @@ public class Movie {
 		//not deleted
 		return false;
 	}
-	
+	/**
+	 * gets the avarage rating of the movie
+	 * @return the average rating of the movie
+	 */
 	public double getAvarageRating() {
 		double total = 0;
 		for(Rating rating : ratings){

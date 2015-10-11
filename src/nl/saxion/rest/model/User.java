@@ -13,10 +13,20 @@ public class User {
 	private String nickname;
 	private String password;
 	
+	/**
+	 * empty constructor required for xml conversion
+	 */
 	public User() {	
 	}
-	
-	public User(String firstname,  String lastname, String insertion, String nickname, String password) {
+	/**
+	 * Construct a user object
+	 * @param firstname the firstname of the user
+	 * @param insertion optional part between first and lastname
+	 * @param lastname the last name of the user
+	 * @param nickname the nickname of the user
+	 * @param password the password of the user
+	 */
+	public User(String firstname,   String insertion, String lastname, String nickname, String password) {
 		super();
 		this.firstname = firstname;
 		this.insertion = insertion;
