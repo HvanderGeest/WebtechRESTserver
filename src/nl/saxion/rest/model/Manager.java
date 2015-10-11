@@ -177,7 +177,6 @@ public class Manager {
 		User u = keyMap.get(getToken(usertoken));
 		System.out.println(u.getFirstname());
 		for(Rating r : m.getRatings()){
-			System.out.println(r.getUser().getFirstname() + r.getRating());
 			if(r.isFromUser(u)){
 				return r;
 			}

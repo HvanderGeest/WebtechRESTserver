@@ -29,11 +29,10 @@ public class UserController {
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response newUser(User user) {
 		Manager m = (Manager) context.getAttribute("manager");
-		if(m.userExists(user)){
+		if(m.userExists(user) || (user.getFirstname().length() < 1) || user.getLastname().length() < 1 || user.getNickname().length() < 1){
 			return Response.status(409).build();
 		}
 		m.addUser(user);
-		System.out.println(user);
 		return Response.ok().build();
 	}
 	
@@ -43,7 +42,6 @@ public class UserController {
 	public Response getAllUsers(@HeaderParam(Token.TOKEN_HEADER) String key) {
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(key)){
-			System.out.println(m.getUserList().get(0).getPassword());
 			List<User> list =  m.getUserList();
 			GenericEntity<List<User>> entity = new GenericEntity<List<User>>(list) {};
 			return Response.ok(entity).build();
