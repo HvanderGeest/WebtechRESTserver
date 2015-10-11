@@ -39,7 +39,7 @@ public class UserController {
 	
 	
 	@GET
-	@Produces({  MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response getAllUsers(@HeaderParam(Token.TOKEN_HEADER) String key) {
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(key)){
@@ -70,15 +70,13 @@ public class UserController {
 	
 	@Path("key")
 	@POST
-	public String login(@FormParam("username") String username, @FormParam("password") String password) {
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response login(@FormParam("username") String username, @FormParam("password") String password) {
 		Manager m = (Manager) context.getAttribute("manager");
 		
 		Token t =m.login(username, password);
 		
-		if (t != null) {
-			return t.toString();
-		}
-		return "Login failed, lel";
+		return Response.ok(t).build();
 	}
 	
 	@GET

@@ -20,7 +20,7 @@ public class Manager {
 		movies.add(new Movie(430,"half life 3","12-02-2004",90, "Gaben Noell", "gamen"));
 		
 		//user + token for testing
-		User test = new User("test", "test", "test", "test", "test");
+		User test = new User("Pieter", "de", "Knouwe", "test", "test");
 		users.add(test);
 		m.addRating(new Rating(0.9, test, m.getImdbttNr()));
 		keyMap.put(new Token("test_token"), test);

@@ -3,6 +3,9 @@ package nl.saxion.rest.model;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Token {
 	private String token;
 	public static final String TOKEN_HEADER = "token";
@@ -18,6 +21,10 @@ public class Token {
 	 */
 	public Token(String testToken){
 		this.token = testToken;
+	}
+	
+	public String getToken() {
+		return this.token;
 	}
 	
 	@Override
