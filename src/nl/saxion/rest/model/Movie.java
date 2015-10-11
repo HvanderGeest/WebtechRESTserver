@@ -4,6 +4,7 @@ package nl.saxion.rest.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -147,7 +148,8 @@ public class Movie {
 	 * gets the avarage rating of the movie
 	 * @return the average rating of the movie
 	 */
-	public double getAvarageRating() {
+	@XmlElement
+	public double getAverageRating() {
 		double total = 0;
 		for(Rating rating : ratings){
 			total += rating.getRating();
