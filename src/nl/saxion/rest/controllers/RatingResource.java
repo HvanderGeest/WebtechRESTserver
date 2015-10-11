@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -59,7 +60,7 @@ public class RatingResource {
 	@POST
 	@Path("{id}")
 	public Response newRating(@HeaderParam(Token.TOKEN_HEADER) String token, @PathParam("id") int imdbttNr,
-			@QueryParam("rating") double rating){
+			@FormParam("rating") double rating){
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(token)){
 			if(rating < 0.5 || rating > 5 || imdbttNr ==0){
@@ -104,10 +105,11 @@ public class RatingResource {
 	@PUT
 	@Path("{id}")
 	public Response updateRating(@HeaderParam(Token.TOKEN_HEADER) String token, @PathParam("id") int imdbttNr,
-			@QueryParam("rating") double newRating ){
+			@FormParam("rating") double newRating ){
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.checkKey(token)){
-			if(newRating < 0.5 || newRating > 5) return Response.status(422).build();
+			System.out.println(newRating);
+			if(newRating < 0.5 || newRating > 5) return Response.status(422).build(); 
 			Rating r = m.getMyRatingForMovie(token, imdbttNr);
 			if(r == null) return Response.status(404).build();
 			r.setRating(newRating);
