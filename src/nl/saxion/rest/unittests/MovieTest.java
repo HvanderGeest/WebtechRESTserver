@@ -7,7 +7,12 @@ import org.junit.Test;
 import nl.saxion.rest.model.Movie;
 import nl.saxion.rest.model.Rating;
 import nl.saxion.rest.model.User;
-
+/**
+ * 
+ * @author Hugo
+ *als er hier errors worden gegenereerd bij het importen
+ *hover dan over @Test en klik op add JUnit 4 library to the build path
+ */
 public class MovieTest {
 
 	@Test

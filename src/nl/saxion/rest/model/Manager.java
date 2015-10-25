@@ -16,15 +16,27 @@ public class Manager {
 	public Manager() {
 		this.s = "test";
 		users.add(new User("Harm", "de", "Docent", "Harm9", "secret"));
-		Movie m = new Movie(420,"half life 2","12-02-2004",90, "Gaben", "best movie evaa");
+		Movie m = new Movie(420,"The Martian","12-02-2004",90, "Gaben", "best movie evaa");
 		movies.add(m);
 		
 		movies.add(new Movie(430,"half life 3","12-02-2004",90, "Gaben Noell", "gamen"));
-		
+		Movie m2 = new Movie(440,"Gravity","12-02-2013",120,"Joerge clooney","space brah");
+		movies.add(m2);
 		//user + token for testing
 		User test = new User("Pieter", "de", "Knouwe", "test", "test");
 		users.add(test);
-		m.addRating(new Rating(0.9, test, m.getImdbttNr()));
+		m.addRating(new Rating(1.0, test, m.getImdbttNr()));
+		m2.addRating(new Rating(3.5,test,m2.getImdbttNr() ));
+		Movie m3 = new Movie(450, "Inside Out", "2015", 124, "whatever", "sick movie");
+		Movie m4 = new Movie(460,"Frozen","2013",90,"princes","fun movie");
+		Movie m5 = new Movie(470,"Up", "2013",90,"old man", "baloons");
+		m3.addRating(new Rating(4.5, test, m3.getImdbttNr()));
+		m4.addRating(new Rating(3.5,test, m4.getImdbttNr()));
+		m5.addRating(new Rating(5.0, test, m5.getImdbttNr()));
+		movies.add(m3);
+		movies.add(m4);
+		movies.add(m5);
+		
 		keyMap.put(new Token("test_token"), test);
 	}
 	/**
