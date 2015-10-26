@@ -35,11 +35,23 @@
         <input  id="username" class="form-control" placeholder="Username" required autofocus>
         <label for="password" class="sr-only">Password</label>
         <input type="password" id="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
+        
+        <!-- sign up -->
+        <div id="sign-up-form" class="hidden">
+	        <label for="password-repeat" class="sr-only">Re-enter password</label>
+	        <input type="password" id="password-repeat" class="form-control" placeholder="Re-enter password" required>
+	        <label for="firstname" class="sr-only">your firstname</label>
+	        <input id="firstname" class="form-control" placeholder="your firstname" required>
+	        <label for="prefix" class="sr-only">your prefix</label>
+	        <input id="prefix" class="form-control" placeholder="your prefix" required>
+	        <label for="lastname" class="sr-only">your lastname</label>
+	        <input id="lastname" class="form-control" placeholder="your lastname" required>
+       	</div> 
+        
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <a id="sign-up">Sign up</a>
           </label>
-        </div>
+    
         <a class="btn btn-lg btn-primary btn-block"  id="sign-in-button">Sign in</a>
       </form>
 
