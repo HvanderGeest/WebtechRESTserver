@@ -1,13 +1,4 @@
-function movie(title, averageRating, description, director){
-	this.title = title;
-	this.averageRating = averageRating;
-	this.description = description;
-	this.director = director;
-
-}
-
-
-
+var token = document.cookie;
 $.ajax({  
     url:  "http://localhost:8080/RestServer/api/movies?hasrating=true", 
     dataType: "json",
@@ -25,14 +16,13 @@ $.ajax({
     			console.log("API  Request failed: " + textStatus2);  
 			}).done(function(data2){ 
     			
-    					$("#img"+index).attr("src",data2.Poster);
-
-    			console.log("image succes img src = "+data2.Poster);
+    			$.each(data,function(index,val){
+         		 	$('#appendMe').append("<div class='stickit'>"+val+"</div>");
+    			});
     	
     		
 			});
         }
     });
 });
-
 
