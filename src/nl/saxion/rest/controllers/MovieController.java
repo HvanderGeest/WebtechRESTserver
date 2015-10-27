@@ -38,12 +38,9 @@ public class MovieController {
 	public Response getMovie(@PathParam("id") int imdbttNr, @HeaderParam(Token.TOKEN_HEADER) String token) {
 		Manager m = (Manager) context.getAttribute("manager");
 		System.out.println(token);
-		if (m.checkKey(token)) {
 			Movie movie = m.getMovie(imdbttNr);
 			return Response.ok(movie).build();
-		} else {
-			return Response.status(401).build();
-		}
+
 
 	}
 	
