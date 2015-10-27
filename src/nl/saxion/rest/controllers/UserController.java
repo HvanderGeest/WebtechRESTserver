@@ -32,12 +32,13 @@ public class UserController {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 	public Response newUser(User user) {
+		System.out.println(user.getPassword()+"");
 		Manager m = (Manager) context.getAttribute("manager");
 		if(m.userExists(user) || (user.getFirstname().length() < 1) || user.getLastname().length() < 1 || user.getNickname().length() < 1){
 			return Response.status(409).build();
 		}
 		m.addUser(user);
-		return Response.ok().build();
+		return Response.ok(200).build();
 	}
 	
 	/**
