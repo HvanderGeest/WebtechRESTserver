@@ -20,6 +20,8 @@ import nl.saxion.rest.model.Token;
 
 @Path("movies")
 public class MovieController {
+	
+
 	@Context
 	ServletContext context;
 	
@@ -64,16 +66,13 @@ public class MovieController {
 			return Response.ok(entity).build();
 			
 		}
-		if (m.checkKey(token)) {
 			// autorized call
 			List<Movie> list = m.getMovieList();
 			GenericEntity<List<Movie>> entity = new GenericEntity<List<Movie>>(list) {
 			};
-			return Response.ok(entity).build();
-		} else {
-			return Response.status(401).build();
 
-		}
+			return Response.ok(entity).build();
+
 	}
 	/**
 	 * search all movies for given parameters
