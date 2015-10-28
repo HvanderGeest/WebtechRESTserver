@@ -1,13 +1,12 @@
-var token = document.cookie;
-console.log("token="+token+"|");
-if(token && token !== "NOT_A_TOKEN"){
+var token = localStorage.getItem("token");
+if(token){
 	$.ajax({
 		url: "http://localhost:8080/RestServer/api/users/verify_credentials",
 		headers:{
 			"token": token
 		}
 	}).fail(function(jqXHR,  textStatus) { 
-    			document.cookie = "NOT_A_TOKEN";
+    			localStorage.removeItem("token");
 
 		}).done(function(data){ 
 			var nickName = data.nickname;
@@ -32,7 +31,7 @@ if(token && token !== "NOT_A_TOKEN"){
 }
 
 function logOut(){
-	document.cookie = "NOT_A_TOKEN";
+	localStorage.removeItem("token");
 	window.location.replace("index.html");
 }
 
@@ -88,7 +87,7 @@ function loadMyRatings(t){
 				      '</div>'+
 				      '<div class="media-body">'+
 				        '<h4 class="media-heading">'+ dataMovieDetails.title+'</h4>'+
-				        'Rating: '+rating+
+				        'Rating: '+rating+"/5"+
 				      '</div>'+
 				    '</div>';
 					console.log(html);

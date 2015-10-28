@@ -49,7 +49,7 @@ function filterDirector(){
 }
 
 function searchMovies(){
-	var token = document.cookie;
+	var token = localStorage.getItem("token");
 	var theUrl = ""
 	var filter = $(".searchMovieFilter").text();
 	var input = $(".movieSearchInput").val().trim();

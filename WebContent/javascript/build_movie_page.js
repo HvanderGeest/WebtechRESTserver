@@ -4,7 +4,7 @@ function getParameterByName(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-var token = document.cookie;
+var token = localStorage.getItem("token");
 
 	$.ajax({
 		url: "http://localhost:8080/RestServer/api/movies/"+getParameterByName('id'),
@@ -12,7 +12,7 @@ var token = document.cookie;
 			"token": token
 		}
 	}).fail(function(jqXHR,  textStatus) { 
-    			document.cookie = "NOT_A_TOKEN";
+    			localStorage.removeItem("token");
     			console.log(textStatus);
 		}).done(function(data){
 			console.log(data.title);
@@ -21,6 +21,6 @@ var token = document.cookie;
 		});
 
 function logOut(){
-	document.cookie = "NOT_A_TOKEN";
+	localStorage.removeItem("token");
 	window.location.replace("index.html");
 }

@@ -88,9 +88,7 @@ function logIn(u, p){
     			alert("login failed, please try again.");  
 		}).done(function(data){ 
     		var token = data.token;
-    		console.log(token);
-    		document.cookie = data.token;
-    		console.log(document.cookie);
+    		localStorage.setItem("token", token);
     		window.location.replace("index.html");
     		
 		});
