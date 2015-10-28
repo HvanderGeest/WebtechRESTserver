@@ -17,10 +17,18 @@ body {
 }
 
 .movie a {
-	widht: 100%;
+	width: 100%;
 	height: 100%;
 }
 
 .movie:hover {
 	background-color: #dddddd;
+}
+
+.small-movie-poster {
+	height: 25%;
+}
+#moviecontainer{
+	clear: both;
+	margin-top:4%;
 }

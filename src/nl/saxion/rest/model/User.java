@@ -1,5 +1,6 @@
 package nl.saxion.rest.model;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -65,7 +66,9 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	
 	@JsonProperty
+	@XmlElement
 	public void setPassword(String password) {
 		this.password = password;
 	}

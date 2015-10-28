@@ -25,7 +25,7 @@ public class Movie {
 	private List<Rating> ratings = new ArrayList<>();
 	
 	/**
-	 * constructs a new movie object
+	 * constructs a new movie object.
 	 * @param imdbttNr the imdbttNr
 	 * @param title the titel of the movie
 	 * @param date the date the movie was released
