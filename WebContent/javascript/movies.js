@@ -11,7 +11,7 @@ function loadAllMovies(){
 	$('#moviecontainer').empty();
 	console.log(getParameterByName('id'))
 	$.ajax({  
-	    url:  "http://localhost:8080/RestServer/api/movies", 
+	    url:  "/RestServer/api/movies", 
 	    dataType: "json",
 	}).fail(function(jqXHR,  textStatus) { 
 	    console.log("API  Request failed: " + textStatus);  

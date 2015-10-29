@@ -24,7 +24,7 @@ $("#sign-in-button").on("click", function(){
 							var jsonString = JSON.stringify(jsonUser);
 							console.log(jsonString);
 							$.ajax({
-								url: "http://localhost:8080/RestServer/api/users",
+								url: "/RestServer/api/users",
 								type: "POST",
 								dataType: "json",
 								contentType: 'application/json',
@@ -78,7 +78,7 @@ $("#sign-up").on("click", function(){
 
 function logIn(u, p){
 	$.ajax({
-		url: "http://localhost:8080/RestServer/api/users/key",
+		url: "/RestServer/api/users/key",
 		type: "POST",
 		dataType: "json",
 		data: $.param({password: p, username: u}),

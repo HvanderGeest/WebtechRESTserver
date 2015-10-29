@@ -1,7 +1,7 @@
 var token = localStorage.getItem("token");
 if(token){
 	$.ajax({
-		url: "http://localhost:8080/RestServer/api/users/verify_credentials",
+		url: "/RestServer/api/users/verify_credentials",
 		headers:{
 			"token": token
 		}
@@ -47,8 +47,9 @@ function loadMyRatings(t){
 	}).done(function(data){
 		$.each(data, function(index, element) {
 			var rating = element.rating;
+			var imdbttNr = element.imdbttNr;
 			$.ajax({
-				url: "/RestServer/api/movies/"+element.imdbttNr,
+				url: "/RestServer/api/movies/"+imdbttNr,
 				headers:{
 					"token": token
 				}
@@ -56,7 +57,7 @@ function loadMyRatings(t){
 				console.log("Loading ratings movie failed "+textStatus2);
 				
 			}).done(function(dataMovieDetails){
-				
+				var ratingString = '<input id="rating-'+imdbttNr+'"value="'+rating+'" class="rating" data-min="0" data-max="5" data-step="0.5">';
 				$.ajax({
 					url:  "http://www.omdbapi.com/?t="+dataMovieDetails.title+"&y=&plot=short&r=json", 
 	    			dataType: "json",
@@ -70,7 +71,7 @@ function loadMyRatings(t){
 				      '</div>'+
 				      '<div class="media-body">'+
 				        '<h4 class="media-heading">'+ dataMovieDetails.title+'</h4>'+
-				        'Rating: '+rating+
+				        'Rating: '+ratingString+
 				      '</div>'+
 				    '</div>';
 					$("#my-ratings").append(html);
@@ -79,6 +80,7 @@ function loadMyRatings(t){
 					
 					var imgUrl = dataImage.Poster;
 					console.log("in de done "+ imgUrl);
+					
 					var html = '<div class="media">'+
 				      '<div class="media-left">'+
 				        '<a href="#">'+
@@ -87,31 +89,16 @@ function loadMyRatings(t){
 				      '</div>'+
 				      '<div class="media-body">'+
 				        '<h4 class="media-heading">'+ dataMovieDetails.title+'</h4>'+
-				        'Rating: '+rating+"/5"+
+				        'Rating: '+ratingString+
 				      '</div>'+
 				    '</div>';
 					console.log(html);
 					$("#my-ratings").append(html);
+					$("#rating-"+imdbttNr).rating();
 				});
 			});
 			
 		});
 	});
 	
-}
-
-function loadImageUrl(movieTitle){
-	$.ajax({  
-		url:  "http://www.omdbapi.com/?t="+movieTitle+"&y=&plot=short&r=json", 
-		dataType: "json",
-	}).fail(function(jqXHR2,  textStatus2) { 
-		console.log("API  Request failed: " + textStatus2);  
-	}).done(function(data2){ 
-		
-				$("#img"+index).attr("src",data2.Poster);
-
-		console.log("image succes img src = "+data2.Poster);
-
-	
-	});
 }

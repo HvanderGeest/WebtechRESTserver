@@ -7,7 +7,7 @@ function getParameterByName(name) {
 var token = localStorage.getItem("token");
 
 	$.ajax({
-		url: "http://localhost:8080/RestServer/api/movies/"+getParameterByName('id'),
+		url: "/RestServer/api/movies/"+getParameterByName('id'),
 		headers:{
 			"token": token
 		}

@@ -36,6 +36,7 @@ public class Manager {
 		movies.add(m3);
 		movies.add(m4);
 		movies.add(m5);
+		movies.add(new Movie(480,"Batman Begins", "2012",90,"Batman", "movie with the batmobile"));
 		
 		keyMap.put(new Token("test_token"), test);
 	}
