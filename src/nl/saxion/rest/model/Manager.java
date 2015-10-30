@@ -19,7 +19,6 @@ public class Manager {
 		Movie m = new Movie(420,"The Martian","12-02-2004",90, "Gaben", "best movie evaa");
 		movies.add(m);
 		
-		movies.add(new Movie(430,"half life 3","12-02-2004",90, "Gaben Noell", "gamen"));
 		Movie m2 = new Movie(440,"Gravity","12-02-2013",120,"Joerge clooney","space brah");
 		movies.add(m2);
 		//user + token for testing
