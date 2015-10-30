@@ -27,11 +27,19 @@ function loadAllMovies(){
 			}).done(function(data2){ 
 				img = data2.Poster;
 				console.log("img: "+img);
-				if(!img){
-					$('#moviecontainer').append('<div class="movie"> <a href="movie.html?id='+element.imdbttNr+'"><img id="img1" value="18" class="img-responsive center-block" src="images/not_available.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.title+'</h3> Average Rating:<br> <p id="average-rating1">'+element.averageRating+' / 5</p></a></div>');
+				var ratingHtml = ""
+				if(element.averageRating =="NaN"){
+					ratingHtml = '<input class="rating" value="0">';
 				} else {
-					$('#moviecontainer').append('<div class="movie"> <a href="movie.html?id='+element.imdbttNr+'"><img id="img1" value="18" class="img-responsive center-block" src="'+img+'" alt="movie-poster-image"> <h3 id="title1">'+element.title+'</h3> Average Rating:<br> <p id="average-rating1">'+element.averageRating+' / 5</p></a></div>');
+					ratingHtml = '<input class="rating" value="'+element.averageRating+'">';
 				}
+				
+				if(!img){
+					$('#moviecontainer').append('<div class="movie"> <a href="movie.html?id='+element.imdbttNr+'"><img id="img1" value="18" class="img-responsive center-block" src="images/not_available.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.title+'</h3> Average Rating:<br>'+ratingHtml+'</a></div>');
+				} else {
+					$('#moviecontainer').append('<div class="movie"> <a href="movie.html?id='+element.imdbttNr+'"><img id="img1" value="18" class="img-responsive center-block" src="'+img+'" alt="movie-poster-image"> <h3 id="title1">'+element.title+'</h3> Average Rating:<br>'+ratingHtml+'</a></div>');
+				}
+				$(".rating").rating({size:'xs', readonly:'true' ,step:'0.1',showClear:false});
 	
 			});
 	    	

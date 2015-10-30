@@ -1,3 +1,4 @@
+//in this file everything connected to the user is loaded if the user is signed in.
 var token = localStorage.getItem("token");
 if(token){
 	$.ajax({
@@ -57,16 +58,17 @@ function loadMyRatings(t){
 				console.log("Loading ratings movie failed "+textStatus2);
 				
 			}).done(function(dataMovieDetails){
-				var ratingString = '<input id="rating-'+imdbttNr+'"value="'+rating+'" class="rating" data-min="0" data-max="5" data-step="0.5">';
+				var ratingString = '<input id="rating-'+imdbttNr+'" class="rating" value="'+rating+'">';
 				$.ajax({
 					url:  "http://www.omdbapi.com/?t="+dataMovieDetails.title+"&y=&plot=short&r=json", 
 	    			dataType: "json",
 				}).fail(function(jqXHR3, textStatus3){
+					//image loaded failed
 					console.log("in de fail");
-					var html = '<div class="media">'+
+					var html = '<div class="media" id="media-'+imdbttNr+'">'+
 				      '<div class="media-left">'+
 				        '<a href="#">'+
-				          '<img class="media-object small-movie-poster" data-src="holder.js/64x64" alt="Generic placeholder image">'+
+				          '<img class="media-object small-movie-poster"  alt="Generic placeholder image">'+
 				        '</a>'+
 				      '</div>'+
 				      '<div class="media-body">'+
@@ -75,13 +77,22 @@ function loadMyRatings(t){
 				      '</div>'+
 				    '</div>';
 					$("#my-ratings").append(html);
+					$("#rating-"+imdbttNr).rating({min:0,step:0.5}).on('rating.change', function(event, value, caption) {
+						 var id = this.id.slice(7); //removed raiting- from id so id can be used in request
+						 putNewRating(id, token, value);
+					}).on('rating.clear', function(event) {
+						var id = this.id.slice(7);
+						clearRating(id, token);
+					});
 					
 				}).done(function(dataImage){
-					
+					//idmb server reached
 					var imgUrl = dataImage.Poster;
-					console.log("in de done "+ imgUrl);
+					if(!imgUrl){
+						imgUrl="images/not_available.jpg"
+					}
 					
-					var html = '<div class="media">'+
+					var html = '<div class="media" id="media-'+imdbttNr+'">'+
 				      '<div class="media-left">'+
 				        '<a href="#">'+
 				          '<img class="media-object small-movie-poster" src="'+imgUrl+'" alt="Generic placeholder image">'+
@@ -94,7 +105,13 @@ function loadMyRatings(t){
 				    '</div>';
 					console.log(html);
 					$("#my-ratings").append(html);
-					$("#rating-"+imdbttNr).rating();
+					$("#rating-"+imdbttNr).rating({min:0,step:0.5}).on('rating.change', function(event, value, caption) {
+					    var id = this.id.slice(7); //removed raiting- from id so id can be used in request
+					    putNewRating(id, token, value);
+					}).on('rating.clear', function(event) {
+						var id = this.id.slice(7);
+						clearRatingMenu(id, token);
+					});
 				});
 			});
 			
@@ -102,3 +119,45 @@ function loadMyRatings(t){
 	});
 	
 }
+
+function clearRatingMenu(id, token){
+	$.ajax({
+		url : "/RestServer/api/ratings/"+id,
+		type: "DELETE",
+		headers:{
+			"token":token
+		}
+	}).fail(function(jqXHR2,  textStatus2){
+		console.log("Removing Rating failed"+textStatus2);
+		
+	}).done(function(dataMovieDetails){
+		$("#media-"+id).remove();
+		
+	});
+}
+
+function putNewRating(id, token, newValue){
+	$.ajax({
+		url : "/RestServer/api/ratings/"+id,
+		type: "PUT",
+		data: $.param({rating: newValue}),
+		headers:{
+			"token":token,
+			'Content-Type': 'application/x-www-form-urlencoded'
+		}
+	}).fail(function(jqXHR2,  textStatus2){
+		console.log("Removing Rating failed"+textStatus2);
+		
+	}).done(function(dataMovieDetails){
+		console.log("updating rating succesfull");
+		
+	});
+	
+}
+
+function refreshMyRatings(){
+	$("#my-ratings").empty();
+	loadMyRatings(token);
+	
+}
+
