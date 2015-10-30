@@ -32,3 +32,11 @@ body {
 	clear: both;
 	margin-top:4%;
 }
+#movie-description{
+	margin-top: 2%;
+}
+#movie-image {
+	height: 65%;
+}
+
+

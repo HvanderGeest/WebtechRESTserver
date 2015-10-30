@@ -9,7 +9,7 @@ function movie(title, averageRating, description, director){
 
 
 $.ajax({  
-    url:  "/RestServer/api/movies?hasrating=true", 
+    url:  "/RestServer/api/movies", 
     dataType: "json",
 }).fail(function(jqXHR,  textStatus) { 
     console.log("API  Request failed: " + textStatus);  
