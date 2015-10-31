@@ -1,3 +1,4 @@
+//gets the url parameter
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -6,7 +7,7 @@ function getParameterByName(name) {
 }
 
 
-
+//loads all movies in the container
 function loadAllMovies(){
 	$('#moviecontainer').empty();
 	console.log(getParameterByName('id'))
@@ -47,15 +48,16 @@ function loadAllMovies(){
 	});
 }
 loadAllMovies();
-
+//change the filter to search titles
 function filterTitle(){
 	$(".searchMovieFilter").html('Title <span class="caret"></span>');
 }
-
+//change the filter to search directors
 function filterDirector(){
 	$(".searchMovieFilter").html('Director <span class="caret"></span>');
 }
 
+//search the movies
 function searchMovies(){
 	var token = localStorage.getItem("token");
 	var theUrl = ""
@@ -107,7 +109,7 @@ function searchMovies(){
 	    });
 	});
 }
-
+//enter is pressed
 $(".movieSearchInput").keyup(function (e) {
     if (e.keyCode == 13) {
         searchMovies();

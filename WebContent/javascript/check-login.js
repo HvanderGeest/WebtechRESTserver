@@ -1,6 +1,9 @@
 //in this file everything connected to the user is loaded if the user is signed in.
 var token = localStorage.getItem("token");
 if(token){
+	//user is signed in.
+	
+	//get the user information
 	$.ajax({
 		url: "/RestServer/api/users/verify_credentials",
 		headers:{
@@ -19,7 +22,8 @@ if(token){
 		        '<span class="sr-only">Toggle Dropdown</span>'+
 		      '</button>'+
 		      '<ul class="dropdown-menu"><li><a onclick="logOut();">Log out</a></li></ul></div>';
-    		$("#login-section").html(htmlString);
+    		//replaces the login button with a segmented button
+			$("#login-section").html(htmlString);
     		
     		//modal information loading here
     		$("#modalLabelNickName").text(nickName);
@@ -33,9 +37,9 @@ if(token){
 
 function logOut(){
 	localStorage.removeItem("token");
-	window.location.replace("index.html");
+	window.location.replace("movies.html");
 }
-
+//this function loads all the ratings for your profile page
 function loadMyRatings(t){
 	$.ajax({
 		url: "/RestServer/api/ratings",
@@ -82,7 +86,7 @@ function loadMyRatings(t){
 						 putNewRating(id, token, value);
 					}).on('rating.clear', function(event) {
 						var id = this.id.slice(7);
-						clearRating(id, token);
+						clearRatingMenu(id, token);
 					});
 					
 				}).done(function(dataImage){
@@ -105,6 +109,7 @@ function loadMyRatings(t){
 				    '</div>';
 					console.log(html);
 					$("#my-ratings").append(html);
+					//initializes the rating and sets the behaviour
 					$("#rating-"+imdbttNr).rating({min:0,step:0.5}).on('rating.change', function(event, value, caption) {
 					    var id = this.id.slice(7); //removed raiting- from id so id can be used in request
 					    putNewRating(id, token, value);
@@ -119,7 +124,7 @@ function loadMyRatings(t){
 	});
 	
 }
-
+//delete a rating.
 function clearRatingMenu(id, token){
 	$.ajax({
 		url : "/RestServer/api/ratings/"+id,
@@ -135,7 +140,7 @@ function clearRatingMenu(id, token){
 		
 	});
 }
-
+//update a rating
 function putNewRating(id, token, newValue){
 	$.ajax({
 		url : "/RestServer/api/ratings/"+id,
@@ -154,7 +159,7 @@ function putNewRating(id, token, newValue){
 	});
 	
 }
-
+//reload my ratings in profile page
 function refreshMyRatings(){
 	$("#my-ratings").empty();
 	loadMyRatings(token);

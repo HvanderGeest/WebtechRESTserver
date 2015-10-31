@@ -35,7 +35,6 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="index.html">Home</a></li>
             <li><a href="movies.html">Movies</a></li>
             <li><a href="users.html">Users</a></li>
             <li class="active"><a href="about.html">About us</a></li>
@@ -51,7 +50,49 @@
 		<p>We take much pride in our work. As a startup we want to share our confidence to the world. <br> We believe this is done best by just bringing you the best product known the human kind</p>
 		<P>To contact us, we refer to: not-us@notflix.com</P>
 	</div>
-   
+   	<!-- Modal -->
+	<!-- sample modal content -->
+	<div id="my-profile-modal" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalLabelNickName">username
+						Loading...</h4>
+				</div>
+				<div class="modal-body">
+					<h4>User Information</h4>
+					<p id="fullname">
+						<strong>Full name: </strong>
+					</p>
+					<p id="username-modal">
+						<strong>Username: </strong>
+					</p>
+
+
+
+					<hr>
+
+					<h4>My ratings:</h4>
+					<div id="my-ratings"></div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" onclick="refreshMyRatings();">Refresh</button>
+				</div>
+
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -59,6 +100,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="javascript/star-rating.min.js"></script>
     <script src="javascript/check-login.js"></script>
-    <script src="javascript/build_movie_page.js"></script>
   </body>
 </html>

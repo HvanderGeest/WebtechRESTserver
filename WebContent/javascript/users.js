@@ -24,7 +24,7 @@ if(token){
 			}).done(function(data){ 
 			    console.log(data);
 			    $.each(data, function(index, element) {
-					$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.lastname+'</h3></div>');
+					$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
 			    	console.log(element.firstname);
 			    });
 			    
@@ -78,7 +78,7 @@ function searchUsers(){
 	    	$('#usercontainer').append("<h3>No results found...</h3>");
 	    }
 	    $.each(data, function(index, element) {
-	    	$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.lastname+'</h3></div>');
+	    	$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
 	    });
 	});
 }

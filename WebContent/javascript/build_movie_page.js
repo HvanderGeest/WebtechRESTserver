@@ -1,3 +1,6 @@
+//javascript file that fills the information in the body of the page movie.html
+
+//gets a parameter from the url
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
@@ -6,6 +9,7 @@ function getParameterByName(name) {
 }
 var token = localStorage.getItem("token");
 var myRating = 0;
+//request call to get the information from a movie
 	$.ajax({
 		url: "/RestServer/api/movies/"+getParameterByName('id'),
 		headers:{
@@ -71,6 +75,7 @@ var myRating = 0;
 					});
 	 			});
     		} else {
+    			//not signed in
     			$("#my-rating-movie").append("Log in to see your Rating for this movie");
     		}
     		
@@ -87,6 +92,7 @@ var myRating = 0;
  				
  				
  				if(img){
+ 					//img found
  					$("#movie-image").attr('src',img);
  				}
  				
@@ -97,10 +103,11 @@ var myRating = 0;
 
 function logOut(){
 	localStorage.removeItem("token");
-	window.location.replace("index.html");
+	window.location.replace("movies.html");
 }
-
+//function deletes a rating
 function clearRating(id, token){
+	
 	$.ajax({
 		url : "/RestServer/api/ratings/"+id,
 		type: "DELETE",
@@ -115,7 +122,7 @@ function clearRating(id, token){
 		
 	});
 }
-
+//function updates a rating
 function putNewRating(id, token, newValue){
 	$.ajax({
 		url : "/RestServer/api/ratings/"+id,
@@ -134,7 +141,7 @@ function putNewRating(id, token, newValue){
 	});
 	
 }
-
+//function makes a new rating
 function postNewRating(id, token, newValue){
 	$.ajax({
 		url : "/RestServer/api/ratings/"+id,

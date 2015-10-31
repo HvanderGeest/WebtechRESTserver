@@ -1,3 +1,4 @@
+//sign in or sign up
 $("#sign-in-button").on("click", function(){
 	var userName = $("#username").val();
 	var passWord = $("#password").val();
@@ -6,6 +7,7 @@ $("#sign-in-button").on("click", function(){
 		logIn(userName, passWord);
 	
 	} else {
+		//sign up
 		var rePassword = $("#password-repeat").val();
 		var name = $("#firstname").val();
 		var insertion = $("#prefix").val();
@@ -59,7 +61,7 @@ $("#sign-in-button").on("click", function(){
 		
 	}
 });
-
+//toggle between sign in and sign up
 $("#sign-up").on("click", function(){
 	var buttonText = $("#sign-up").text();
 	console.log(buttonText);
@@ -75,7 +77,7 @@ $("#sign-up").on("click", function(){
 	}
 	
 });
-
+//log in request
 function logIn(u, p){
 	$.ajax({
 		url: "/RestServer/api/users/key",
@@ -89,7 +91,7 @@ function logIn(u, p){
 		}).done(function(data){ 
     		var token = data.token;
     		localStorage.setItem("token", token);
-    		window.location.replace("index.html");
+    		window.location.replace("movies.html");
     		
 		});
 	
