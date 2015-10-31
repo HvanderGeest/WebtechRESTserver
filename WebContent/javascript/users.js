@@ -24,7 +24,7 @@ if(token){
 			}).done(function(data){ 
 			    console.log(data);
 			    $.each(data, function(index, element) {
-					$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
+					$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"><h3>'+element.nickname+'</h3> <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
 			    	console.log(element.firstname);
 			    });
 			    
@@ -44,6 +44,9 @@ function filterFirstName(){
 function filterLastName(){
 	$(".searchUserFilter").html('Last Name <span class="caret"></span>');
 }
+function filterUserName(){
+	$(".searchUserFilter").html('Username <span class="caret"></span>');
+}
 
 function searchUsers(){
 	var token = localStorage.getItem("token");
@@ -60,6 +63,8 @@ function searchUsers(){
 		theUrl = "/RestServer/api/users/query?firstname="+input;
 	} else if(filter.trim() =="Last Name"){
 		theUrl = "/RestServer/api/users/query?lastname="+input;
+	} else if(filter.trim() =="Username"){
+		theUrl = "/RestServer/api/users/query?nickname="+input;
 	}
 	
 	
@@ -78,14 +83,14 @@ function searchUsers(){
 	    	$('#usercontainer').append("<h3>No results found...</h3>");
 	    }
 	    $.each(data, function(index, element) {
-	    	$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"> <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
+	    	$('#usercontainer').append('<div class="movie"> <img id="img1" value="18" class="img-responsive center-block" src="images/user.jpg" alt="movie-poster-image"><h3>'+element.nickname+'</h3>  <h3 id="title1">'+element.firstname+' '+element.insertion+' '+element.lastname+'</h3></div>');
 	    });
 	});
 }
 
-$(".movieSearchInput").keyup(function (e) {
+$(".userSearchInput").keyup(function (e) {
     if (e.keyCode == 13) {
-        searchMovies();
+        searchUsers();
     }
 });
 
